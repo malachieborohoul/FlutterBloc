@@ -80,58 +80,58 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: BlocListener<CounterCubit, CounterState>(
-          listener: (context, state) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                    state.wasIncremented == true ? "Increment" : "Decrement"),
-                duration: const Duration(milliseconds: 300),
-              ),
-            );
-          },
-          child: Center(
-            // Center is a layout widget. It takes a single child and positions it
-            // in the middle of the parent.
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text(
-                  'You have pushed the button this many times:',
-                ),
-                BlocBuilder<CounterCubit, CounterState>(
-                  builder: (context, state) {
-                    return Text(
-                      state.counterValue.toString(),
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    );
+      body: Center(
+        // Center is a layout widget. It takes a single child and positions it
+        // in the middle of the parent.
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text(
+              'You have pushed the button this many times:',
+            ),
+            BlocConsumer<CounterCubit, CounterState>(
+              listener: (context, state) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.wasIncremented == true
+                        ? "Increment"
+                        : "Decrement"),
+                    duration: const Duration(milliseconds: 300),
+                  ),
+                );
+              },
+              builder: (context, state) {
+                return Text(
+                  state.counterValue.toString(),
+                  style: Theme.of(context).textTheme.headlineMedium,
+                );
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                FloatingActionButton(
+                  onPressed: () {
+                    BlocProvider.of<CounterCubit>(context).decrement();
                   },
+                  tooltip: 'Decrement',
+                  child: const Icon(Icons.remove),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    FloatingActionButton(
-                      onPressed: () {
-                        BlocProvider.of<CounterCubit>(context).decrement();
-                      },
-                      tooltip: 'Decrement',
-                      child: const Icon(Icons.remove),
-                    ),
-                    FloatingActionButton(
-                      onPressed: () {
-                        BlocProvider.of<CounterCubit>(context).increment();
-                      },
-                      tooltip: 'Increment',
-                      child: const Icon(Icons.add),
-                    )
-                  ],
+                FloatingActionButton(
+                  onPressed: () {
+                    BlocProvider.of<CounterCubit>(context).increment();
+                  },
+                  tooltip: 'Increment',
+                  child: const Icon(Icons.add),
                 )
               ],
-            ),
-          )),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
