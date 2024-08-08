@@ -1,5 +1,4 @@
 import 'package:bloc_flutter/logic/cubit/counter_cubit.dart';
-import 'package:bloc_flutter/presentation/screens/second_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -41,14 +40,14 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 FloatingActionButton(
-                  heroTag: Text(widget.title + "1"),
+                  heroTag: Text("${widget.title}1"),
                   onPressed: () {
                     BlocProvider.of<CounterCubit>(context).decrement();
                   },
                   child: const Icon(Icons.remove),
                 ),
                 FloatingActionButton(
-                  heroTag: Text(widget.title + "2"),
+                  heroTag: Text("${widget.title}2"),
                   onPressed: () {
                     BlocProvider.of<CounterCubit>(context).increment();
                   },
