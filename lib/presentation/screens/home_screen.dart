@@ -1,4 +1,6 @@
+import 'package:bloc_flutter/constants/enums.dart';
 import 'package:bloc_flutter/logic/cubit/counter_cubit.dart';
+import 'package:bloc_flutter/logic/cubit/internet_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,6 +23,19 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            BlocBuilder<InternetCubit, InternetState>(
+                builder: (context, state) {
+              if (state is InternetConnected &&
+                  state.connectionType == ConnectionType.Wifi) {
+                return const Text("Wifi");
+              } else if (state is InternetConnected &&
+                  state.connectionType == ConnectionType.Mobile) {
+                return const Text("Mobile");
+              } else if (state is InternetDisconnected) {
+                return const Text("Disonnected");
+              }
+              return const CircularProgressIndicator();
+            }),
             BlocConsumer<CounterCubit, CounterState>(
               listener: (context, state) {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -33,46 +48,45 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Text(state.counterValue.toString());
               },
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                FloatingActionButton(
-                  heroTag: Text("${widget.title}1"),
-                  onPressed: () {
-                    BlocProvider.of<CounterCubit>(context).decrement();
-                  },
-                  child: const Icon(Icons.remove),
-                ),
-                FloatingActionButton(
-                  heroTag: Text("${widget.title}2"),
-                  onPressed: () {
-                    BlocProvider.of<CounterCubit>(context).increment();
-                  },
-                  child: const Icon(Icons.add),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-            MaterialButton(
-              color: widget.color,
-              onPressed: () {
-                                   Navigator.pushNamed(context, '/second');
-
-              },
-              child: const Text("Go to the second screen"),
-            ),
-            MaterialButton(
-              color: widget.color,
-              onPressed: () {
-                Navigator.pushNamed(context, '/third');
-              },
-              child: const Text("Go to the third screen"),
-            )
+            // const SizedBox(
+            //   height: 10,
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //     FloatingActionButton(
+            //       heroTag: Text("${widget.title}1"),
+            //       onPressed: () {
+            //         BlocProvider.of<CounterCubit>(context).decrement();
+            //       },
+            //       child: const Icon(Icons.remove),
+            //     ),
+            //     FloatingActionButton(
+            //       heroTag: Text("${widget.title}2"),
+            //       onPressed: () {
+            //         BlocProvider.of<CounterCubit>(context).increment();
+            //       },
+            //       child: const Icon(Icons.add),
+            //     ),
+            //   ],
+            // ),
+            // const SizedBox(
+            //   height: 25,
+            // ),
+            // MaterialButton(
+            //   color: widget.color,
+            //   onPressed: () {
+            //     Navigator.pushNamed(context, '/second');
+            //   },
+            //   child: const Text("Go to the second screen"),
+            // ),
+            // MaterialButton(
+            //   color: widget.color,
+            //   onPressed: () {
+            //     Navigator.pushNamed(context, '/third');
+            //   },
+            //   child: const Text("Go to the third screen"),
+            // )
           ],
         ),
       ),

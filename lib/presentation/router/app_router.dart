@@ -5,7 +5,6 @@ import 'package:bloc_flutter/presentation/screens/third_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
-  final CounterCubit _counterCubit = CounterCubit();
   Route? onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case '/':
@@ -27,7 +26,5 @@ class AppRouter {
     }
   }
 
-  void dispose() {
-    _counterCubit.close();
-  }
+
 }
