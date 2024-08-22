@@ -1,4 +1,3 @@
-import 'package:bloc_flutter/logic/cubit/counter_cubit.dart';
 import 'package:bloc_flutter/presentation/screens/home_screen.dart';
 import 'package:bloc_flutter/presentation/screens/second_screen.dart';
 import 'package:bloc_flutter/presentation/screens/third_screen.dart';
